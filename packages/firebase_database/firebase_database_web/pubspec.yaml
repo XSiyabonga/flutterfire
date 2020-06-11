@@ -18,7 +18,10 @@ dependencies:
   meta: ^1.1.7
   firebase_core: ^0.4.3+1
   firebase_database_platform_interface:
-    path: ../firebase_database_platform_interface
+    git:
+      url: https://github.com/MichealReed/flutterfire
+      ref: realtime_database_web_support
+      path: packages/firebase_database/firebase_database_platform_interface
   js: ^0.6.1
 dev_dependencies:
   flutter_test:
