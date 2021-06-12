@@ -35,7 +35,7 @@ abstract class DatabasePlatform extends PlatformInterface {
   /// If [app] is specified, its options should include a [databaseURL].
 
   DatabasePlatform({FirebaseApp app, this.databaseURL})
-      : app = app ?? FirebaseApp.instance,
+      : app = app ?? FirebaseApp,
         super(token: _token);
 
   static final Object _token = Object();
@@ -50,8 +50,9 @@ abstract class DatabasePlatform extends PlatformInterface {
   /// It will always default to [MethodChannelDatabase]
   /// if no web implementation was provided.
   static DatabasePlatform get instance {
+    FirebaseApp app = null;
     if (_instance == null) {
-      _instance = MethodChannelDatabase();
+      _instance = MethodChannelDatabase(app,"");
     }
     return _instance;
   }

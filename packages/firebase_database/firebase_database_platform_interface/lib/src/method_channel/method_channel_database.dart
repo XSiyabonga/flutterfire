@@ -7,8 +7,8 @@ class MethodChannelDatabase extends DatabasePlatform {
   /// Gets an instance of [FirebaseDatabase].
   ///
   /// If [app] is specified, its options should include a [databaseURL].
-  MethodChannelDatabase({FirebaseApp app, String databaseURL})
-      : super(app: app ?? FirebaseApp.instance, databaseURL: databaseURL) {
+  MethodChannelDatabase(FirebaseApp app, String databaseURL)
+      : super(app: app, databaseURL: databaseURL) {
     if (_initialized) return;
     channel.setMethodCallHandler((MethodCall call) async {
       switch (call.method) {
@@ -38,7 +38,7 @@ class MethodChannelDatabase extends DatabasePlatform {
     _initialized = true;
   }
 
-  DatabasePlatform withApp(FirebaseApp app) => MethodChannelDatabase(app: app);
+  DatabasePlatform withApp(FirebaseApp app) => MethodChannelDatabase(app,"https://x-flush.firebaseio.com/");
 
   @override
   String appName() => app.name;
