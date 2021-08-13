@@ -4,9 +4,9 @@ part of firebase_database_platform_interface;
 class MethodChannelQuery extends QueryPlatform {
   /// Create a [MethodChannelQuery] from [pathComponents]
   MethodChannelQuery({
-    @required DatabasePlatform database,
-    @required List<String> pathComponents,
-    Map<String, dynamic> parameters,
+    required DatabasePlatform database,
+    required List<String>? pathComponents,
+    Map<String, dynamic>? parameters,
   }) : super(
           database: database,
           parameters: parameters,
@@ -15,10 +15,10 @@ class MethodChannelQuery extends QueryPlatform {
 
   @override
   Stream<EventPlatform> observe(EventType eventType) {
-    Future<int> _handle;
+    late Future<int> _handle;
     // It's fine to let the StreamController be garbage collected once all the
     // subscribers have cancelled; this analyzer warning is safe to ignore.
-    StreamController<EventPlatform> controller; // ignore: close_sinks
+    StreamController<EventPlatform>? controller; // ignore: close_sinks
     controller = StreamController<EventPlatform>.broadcast(
       onListen: () {
         _handle = MethodChannelDatabase.channel.invokeMethod<int>(
@@ -55,13 +55,13 @@ class MethodChannelQuery extends QueryPlatform {
   }
 
   /// Slash-delimited path representing the database location of this query.
-  String get path => pathComponents.join('/');
+  String get path => pathComponents!.join('/');
 
   /// Create a query constrained to only return child nodes with a value greater
   /// than or equal to the given value, using the given orderBy directive or
   /// priority as default, and optionally only child nodes with a key greater
   /// than or equal to the given key.
-  QueryPlatform startAt(dynamic value, {String key}) {
+  QueryPlatform startAt(dynamic value, {String? key}) {
     assert(!this.parameters.containsKey('startAt'));
     assert(value is String ||
         value is bool ||
@@ -77,7 +77,7 @@ class MethodChannelQuery extends QueryPlatform {
   /// than or equal to the given value, using the given orderBy directive or
   /// priority as default, and optionally only child nodes with a key less
   /// than or equal to the given key.
-  QueryPlatform endAt(dynamic value, {String key}) {
+  QueryPlatform endAt(dynamic value, {String? key}) {
     assert(!this.parameters.containsKey('endAt'));
     assert(value is String ||
         value is bool ||
@@ -93,7 +93,7 @@ class MethodChannelQuery extends QueryPlatform {
   /// `value` (and `key`, if provided).
   ///
   /// If a key is provided, there is at most one such child as names are unique.
-  QueryPlatform equalTo(dynamic value, {String key}) {
+  QueryPlatform equalTo(dynamic value, {String? key}) {
     assert(!this.parameters.containsKey('equalTo'));
     assert(value is String ||
         value is bool ||

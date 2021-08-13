@@ -29,13 +29,13 @@ class DatabaseReferenceWeb extends DatabaseReferencePlatform {
   }
 
   @override
-  QueryPlatform endAt(value, {String key}) {
+  QueryPlatform endAt(value, {String? key}) {
     return QueryWeb(
         _databasePlatform, _pathComponents, _delegate.endAt(value, key));
   }
 
   @override
-  QueryPlatform equalTo(value, {String key}) {
+  QueryPlatform equalTo(value, {String? key}) {
     return QueryWeb(
         _databasePlatform, _pathComponents, _delegate.equalTo(value, key));
   }
@@ -110,7 +110,7 @@ class DatabaseReferenceWeb extends DatabaseReferencePlatform {
   }
 
   @override
-  DatabaseReferencePlatform parent() {
+  DatabaseReferencePlatform? parent() {
     if (_pathComponents.isEmpty) return null;
     return DatabaseReferenceWeb(_webDatabase, _databasePlatform,
         List<String>.from(_pathComponents)..removeLast());
@@ -157,7 +157,7 @@ class DatabaseReferenceWeb extends DatabaseReferencePlatform {
   }
 
   @override
-  QueryPlatform startAt(value, {String key}) {
+  QueryPlatform startAt(value, {String? key}) {
     return QueryWeb(
         _databasePlatform, _pathComponents, _delegate.startAt(value, key));
   }

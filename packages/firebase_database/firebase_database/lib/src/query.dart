@@ -9,8 +9,8 @@ class Query {
   final platform.QueryPlatform delegate;
 
   Query({
-    this.delegate,
-    @required List<String> pathComponents,
+    required this.delegate,
+    required List<String> pathComponents,
   })  : _pathComponents = pathComponents,
         assert(delegate != null);
 
@@ -58,7 +58,7 @@ class Query {
   /// than or equal to the given value, using the given orderBy directive or
   /// priority as default, and optionally only child nodes with a key greater
   /// than or equal to the given key.
-  Query startAt(dynamic value, {String key}) {
+  Query startAt(dynamic value, {String? key}) {
     return Query(
         delegate: delegate.startAt(value, key: key),
         pathComponents: _pathComponents);
@@ -68,7 +68,7 @@ class Query {
   /// than or equal to the given value, using the given orderBy directive or
   /// priority as default, and optionally only child nodes with a key less
   /// than or equal to the given key.
-  Query endAt(dynamic value, {String key}) {
+  Query endAt(dynamic value, {String? key}) {
     return Query(
         delegate: delegate.endAt(value, key: key),
         pathComponents: _pathComponents);
@@ -78,7 +78,7 @@ class Query {
   /// `value` (and `key`, if provided).
   ///
   /// If a key is provided, there is at most one such child as names are unique.
-  Query equalTo(dynamic value, {String key}) {
+  Query equalTo(dynamic value, {String? key}) {
     return Query(
         delegate: delegate.equalTo(value, key: key),
         pathComponents: _pathComponents);
@@ -135,7 +135,7 @@ class Query {
 
   /// Obtains a DatabaseReference corresponding to this query's location.
   DatabaseReference reference() =>
-      DatabaseReference._(delegate, _pathComponents);
+      DatabaseReference._(delegate as platform.DatabaseReferencePlatform, _pathComponents);
 
   Future<void> keepSynced(bool value) {
     return delegate.keepSynced(value);

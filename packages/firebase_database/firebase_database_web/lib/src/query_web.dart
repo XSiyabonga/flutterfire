@@ -12,32 +12,33 @@ class QueryWeb extends QueryPlatform {
 
   /// Builds an instance of [QueryWeb] delegating to a package:firebase [QueryPlatform]
   /// to delegate queries to underlying firebase web plugin
+  /// //If null   databasePlatform.reference().child(pathComponents.join("/")
   QueryWeb(
     DatabasePlatform databasePlatform,
     List<String> pathComponents,
     web.Query query,
   )   : _databasePlatform = databasePlatform,
         _pathComponents = pathComponents,
-        _delegate = query ??
-            databasePlatform.reference().child(pathComponents.join("/"));
+        _delegate = query,
+        super(database: databasePlatform, pathComponents: pathComponents);
 
   /// Create a query constrained to only return child nodes with a value greater
   /// than or equal to the given value, using the given orderBy directive or
   /// priority as default, and optionally only child nodes with a key greater
   /// than or equal to the given key.
-  QueryPlatform startAt(dynamic value, {String key}) {
+  QueryPlatform startAt(dynamic value, {String? key}) {
     return QueryWeb(
         _databasePlatform, _pathComponents, _delegate.startAt(value, key));
   }
 
   @override
-  QueryPlatform endAt(value, {String key}) {
+  QueryPlatform endAt(value, {String? key}) {
     return QueryWeb(
         _databasePlatform, _pathComponents, _delegate.endAt(value, key));
   }
 
   @override
-  QueryPlatform equalTo(value, {String key}) {
+  QueryPlatform equalTo(value, {String? key}) {
     return QueryWeb(
         _databasePlatform, _pathComponents, _delegate.equalTo(value, key));
   }

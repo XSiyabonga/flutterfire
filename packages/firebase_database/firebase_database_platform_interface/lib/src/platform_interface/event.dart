@@ -32,7 +32,7 @@ class EventPlatform {
   final DataSnapshotPlatform snapshot;
 
   /// Returns string containing the key of the previous child.
-  final String previousSiblingKey;
+  final String? previousSiblingKey;
 }
 
 /// A DataSnapshot contains data from a Firebase Database location.
@@ -42,7 +42,7 @@ class DataSnapshotPlatform {
   DataSnapshotPlatform(this.key, this.value);
 
   /// The key of the location that generated this DataSnapshot.
-  final String key;
+  final String? key;
 
   /// Returns the contents of this data snapshot as native types.
   final dynamic value;
@@ -54,14 +54,14 @@ class MutableDataPlatform {
   @visibleForTesting
   MutableDataPlatform(this._data);
 
-  final Map<dynamic, dynamic> _data;
+  final Map<dynamic, dynamic>? _data;
 
   /// The key of the location that generated this MutableData.
-  String get key => _data['key'];
+  String? get key => _data!['key'];
 
   /// Returns the mutable contents of this MutableData as native types.
-  dynamic get value => _data['value'];
-  set value(dynamic newValue) => _data['value'] = newValue;
+  dynamic get value => _data!['value'];
+  set value(dynamic newValue) => _data!['value'] = newValue;
 }
 
 /// A DatabaseError contains code, message and details of a Firebase Database
@@ -72,13 +72,13 @@ class DatabaseErrorPlatform {
   DatabaseErrorPlatform(this.code, this.message, this.details);
 
   /// One of the defined status codes, depending on the error.
-  final int code;
+  final int? code;
 
   /// A human-readable description of the error.
-  final String message;
+  final String? message;
 
   /// Human-readable details on the error and additional information.
-  final String details;
+  final String? details;
 
   @override
   String toString() => "$runtimeType($code, $message, $details)";

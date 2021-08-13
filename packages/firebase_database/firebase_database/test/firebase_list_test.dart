@@ -14,13 +14,13 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('FirebaseList', () {
-    StreamController<Event> onChildAddedStreamController;
-    StreamController<Event> onChildRemovedStreamController;
-    StreamController<Event> onChildChangedStreamController;
-    StreamController<Event> onChildMovedStreamController;
+    late StreamController<Event> onChildAddedStreamController;
+    late StreamController<Event> onChildRemovedStreamController;
+    late StreamController<Event> onChildChangedStreamController;
+    late StreamController<Event> onChildMovedStreamController;
     MockQuery query;
-    FirebaseList list;
-    Completer<ListChange> callbackCompleter;
+    late FirebaseList list;
+    late Completer<ListChange> callbackCompleter;
 
     setUp(() {
       onChildAddedStreamController = StreamController<Event>();
@@ -204,7 +204,7 @@ class ListChange {
   ListChange._(this.index, this.index2, this.snapshot);
 
   final int index;
-  final int index2;
+  final int? index2;
   final DataSnapshot snapshot;
 
   @override
@@ -226,7 +226,7 @@ class MockEvent implements Event {
   MockEvent(this.previousSiblingKey, this.snapshot);
 
   @override
-  final String previousSiblingKey;
+  final String? previousSiblingKey;
 
   @override
   final DataSnapshot snapshot;

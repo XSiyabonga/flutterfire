@@ -29,7 +29,7 @@ abstract class DatabaseReferencePlatform extends QueryPlatform {
   /// Gets a DatabaseReference for the parent location. If this instance
   /// refers to the root of your Firebase Database, it has no parent, and
   /// therefore parent() will return null.
-  DatabaseReferencePlatform parent() {
+  DatabaseReferencePlatform? parent() {
     throw UnimplementedError("parent() not implemented");
   }
 
@@ -40,7 +40,7 @@ abstract class DatabaseReferencePlatform extends QueryPlatform {
 
   /// Gets the last token in a Firebase Database location (e.g. ‘fred’ in
   /// https://SampleChat.firebaseIO-demo.com/users/fred)
-  String get key => pathComponents.last;
+  String? get key => pathComponents!.last;
 
   /// Generates a new child location using a unique key and returns a
   /// DatabaseReference to it. This is useful when the children of a Firebase
@@ -133,15 +133,16 @@ typedef Future<MutableDataPlatform> TransactionHandlerPlatform(
 /// Interface for [TransactionResultPlatform]
 class TransactionResultPlatform extends PlatformInterface {
   /// Constructor for [TransactionResultPlatform]
-  TransactionResultPlatform(this.error, this.committed, this.dataSnapshot);
+  TransactionResultPlatform(this.error, this.committed, this.dataSnapshot)
+      : super(token: "");
 
   /// [DatabaseErrorPlatform] associated to this transaction result
-  final DatabaseErrorPlatform error;
+  final DatabaseErrorPlatform? error;
 
   /// [committed] status associated to this transaction result
-  final bool committed;
+  final bool? committed;
 
   /// [DataSnapshotPlatform] status associated to this transaction result
 
-  final DataSnapshotPlatform dataSnapshot;
+  final DataSnapshotPlatform? dataSnapshot;
 }

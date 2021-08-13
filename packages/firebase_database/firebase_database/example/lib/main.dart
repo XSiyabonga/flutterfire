@@ -11,7 +11,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final FirebaseApp app = await FirebaseApp.instance;
+  final FirebaseApp app = await FirebaseDatabase.instance.app;
   runApp(MaterialApp(
     title: 'Flutter Database Example',
     home: MyHomePage(app: app),

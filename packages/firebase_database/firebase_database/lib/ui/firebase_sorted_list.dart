@@ -21,8 +21,8 @@ import 'utils/stream_subscriber_mixin.dart';
 class FirebaseSortedList extends ListBase<DataSnapshot>
     with StreamSubscriberMixin<Event> {
   FirebaseSortedList({
-    @required this.query,
-    @required this.comparator,
+    required this.query,
+    required this.comparator,
     this.onChildAdded,
     this.onChildRemoved,
     this.onChildChanged,
@@ -41,22 +41,22 @@ class FirebaseSortedList extends ListBase<DataSnapshot>
   final Query query;
 
   /// The comparator used to sort the list on the client side
-  final Comparator<DataSnapshot> comparator;
+  final Comparator<DataSnapshot>? comparator;
 
   /// Called when the child has been added
-  final ChildCallback onChildAdded;
+  final ChildCallback? onChildAdded;
 
   /// Called when the child has been removed
-  final ChildCallback onChildRemoved;
+  final ChildCallback? onChildRemoved;
 
   /// Called when the child has changed
-  final ChildCallback onChildChanged;
+  final ChildCallback? onChildChanged;
 
   /// Called when the data of the list has finished loading
-  final ValueCallback onValue;
+  final ValueCallback? onValue;
 
   /// Called when an error is reported (e.g. permission denied)
-  final ErrorCallback onError;
+  final ErrorCallback? onError;
 
   // ListBase implementation
   final List<DataSnapshot> _snapshots = <DataSnapshot>[];
@@ -87,7 +87,7 @@ class FirebaseSortedList extends ListBase<DataSnapshot>
   void _onChildAdded(Event event) {
     _snapshots.add(event.snapshot);
     _snapshots.sort(comparator);
-    onChildAdded(_snapshots.indexOf(event.snapshot), event.snapshot);
+    onChildAdded!(_snapshots.indexOf(event.snapshot), event.snapshot);
   }
 
   void _onChildRemoved(Event event) {
@@ -97,7 +97,7 @@ class FirebaseSortedList extends ListBase<DataSnapshot>
     });
     final int index = _snapshots.indexOf(snapshot);
     _snapshots.removeAt(index);
-    onChildRemoved(index, snapshot);
+    onChildRemoved!(index, snapshot);
   }
 
   void _onChildChanged(Event event) {
@@ -107,15 +107,15 @@ class FirebaseSortedList extends ListBase<DataSnapshot>
     });
     final int index = _snapshots.indexOf(snapshot);
     _snapshots[index] = event.snapshot;
-    onChildChanged(index, event.snapshot);
+    onChildChanged!(index, event.snapshot);
   }
 
   void _onValue(Event event) {
-    onValue(event.snapshot);
+    onValue!(event.snapshot);
   }
 
   void _onError(Object o) {
-    final DatabaseError error = o;
+    final DatabaseError error = o as DatabaseError;
     onError?.call(error);
   }
 }
