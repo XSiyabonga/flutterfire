@@ -34,14 +34,14 @@ abstract class DatabasePlatform extends PlatformInterface {
   ///
   /// If [app] is specified, its options should include a [databaseURL].
 
-  DatabasePlatform({FirebaseApp app, this.databaseURL})
-      : app = app ?? FirebaseApp.instance,
+  DatabasePlatform({FirebaseApp? app, this.databaseURL})
+      : app = (app ?? FirebaseApp) as FirebaseApp,
         super(token: _token);
 
   static final Object _token = Object();
 
   /// Create an instance using [app] using the existing implementation
-  factory DatabasePlatform.instanceFor({FirebaseApp app}) {
+  factory DatabasePlatform.instanceFor({FirebaseApp? app}) {
     return DatabasePlatform.instance.withApp(app);
   }
 
@@ -50,20 +50,21 @@ abstract class DatabasePlatform extends PlatformInterface {
   /// It will always default to [MethodChannelDatabase]
   /// if no web implementation was provided.
   static DatabasePlatform get instance {
+    FirebaseApp? app = null;
     if (_instance == null) {
-      _instance = MethodChannelDatabase();
+      _instance = MethodChannelDatabase(app,"");
     }
-    return _instance;
+    return _instance!;
   }
 
-  static DatabasePlatform _instance;
+  static DatabasePlatform? _instance;
   static set instance(DatabasePlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
 
   /// Create a new [DatabasePlatform] with a [FirebaseApp] instance
-  DatabasePlatform withApp(FirebaseApp app) {
+  DatabasePlatform withApp(FirebaseApp? app) {
     throw UnimplementedError("withApp() not implemented");
   }
 
@@ -75,7 +76,7 @@ abstract class DatabasePlatform extends PlatformInterface {
   /// The URL to which this [FirebaseDatabase] belongs
   ///
   /// If null, the URL of the specified [FirebaseApp] is used
-  final String databaseURL;
+  final String? databaseURL;
 
   /// Gets a DatabaseReference for the root of your Firebase Database.
   DatabaseReferencePlatform reference() {
@@ -100,7 +101,7 @@ abstract class DatabasePlatform extends PlatformInterface {
   /// to `true`, the data will be persisted to on-device (disk) storage and will
   /// thus be available again when the app is restarted (even when there is no
   /// network connectivity at that time).
-  Future<bool> setPersistenceEnabled(bool enabled) async {
+  Future<bool?> setPersistenceEnabled(bool enabled) async {
     throw UnimplementedError("setPersistenceEnabled() not implemented");
   }
 
@@ -121,7 +122,7 @@ abstract class DatabasePlatform extends PlatformInterface {
   /// Note that the specified cache size is only an approximation and the size
   /// on disk may temporarily exceed it at times. Cache sizes smaller than 1 MB
   /// or greater than 100 MB are not supported.
-  Future<bool> setPersistenceCacheSizeBytes(double cacheSize) async {
+  Future<bool?> setPersistenceCacheSizeBytes(double cacheSize) async {
     throw UnimplementedError("setPersistenceCacheSizeBytes() not implemented");
   }
 

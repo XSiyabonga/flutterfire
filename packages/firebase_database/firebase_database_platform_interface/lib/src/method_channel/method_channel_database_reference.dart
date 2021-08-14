@@ -12,8 +12,8 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
     implements DatabaseReferencePlatform {
   /// Create a [MethodChannelDatabaseReference] from [pathComponents]
   MethodChannelDatabaseReference({
-    DatabasePlatform database,
-    List<String> pathComponents,
+    required DatabasePlatform database,
+    List<String>? pathComponents,
   }) : super(
           database: database,
           pathComponents: pathComponents,
@@ -122,11 +122,11 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
     MethodChannelDatabase._transactions[transactionKey] = transactionHandler;
 
     TransactionResultPlatform toTransactionResult(Map<dynamic, dynamic> map) {
-      final DatabaseErrorPlatform databaseError = map['error'] != null
+      final DatabaseErrorPlatform? databaseError = map['error'] != null
           ? _fromMapToPlatformDatabaseError(map['error'])
           : null;
-      final bool committed = map['committed'];
-      final DataSnapshotPlatform dataSnapshot = map['snapshot'] != null
+      final bool? committed = map['committed'];
+      final DataSnapshotPlatform? dataSnapshot = map['snapshot'] != null
           ? _fromMapToPlatformSnapShot(map['snapshot'])
           : null;
 
@@ -153,11 +153,12 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
   DatabaseReferencePlatform child(String path) {
     return MethodChannelDatabaseReference(
         database: database,
-        pathComponents: pathComponents..addAll(path.split("/")));
+        pathComponents: List<String>.from(pathComponents!)
+          ..addAll(path.split("/").toList()));
   }
 
   @override
-  String get key => pathComponents.isEmpty ? null : pathComponents.last;
+  String? get key => pathComponents!.isEmpty ? null : pathComponents!.last;
 
   @override
   OnDisconnectPlatform onDisconnect() {
@@ -168,13 +169,13 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
   }
 
   @override
-  DatabaseReferencePlatform parent() {
-    if (pathComponents.length < 2) {
+  DatabaseReferencePlatform? parent() {
+    if (pathComponents!.length < 2) {
       return null;
     }
     return MethodChannelDatabaseReference(
       database: database,
-      pathComponents: (List<String>.from(pathComponents))..removeLast(),
+      pathComponents: (List<String>.from(pathComponents!))..removeLast(),
     );
   }
 
@@ -182,7 +183,7 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
   DatabaseReferencePlatform push() {
     return MethodChannelDatabaseReference(
       database: database,
-      pathComponents: List<String>.from(pathComponents)
+      pathComponents: List<String>.from(pathComponents!)
         ..add(PushIdGenerator.generatePushChildName()),
     );
   }

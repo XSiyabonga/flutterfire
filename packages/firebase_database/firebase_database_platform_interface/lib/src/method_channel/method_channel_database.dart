@@ -7,26 +7,26 @@ class MethodChannelDatabase extends DatabasePlatform {
   /// Gets an instance of [FirebaseDatabase].
   ///
   /// If [app] is specified, its options should include a [databaseURL].
-  MethodChannelDatabase({FirebaseApp app, String databaseURL})
-      : super(app: app ?? FirebaseApp.instance, databaseURL: databaseURL) {
+  MethodChannelDatabase(FirebaseApp? app, String databaseURL)
+      : super(app: app, databaseURL: databaseURL) {
     if (_initialized) return;
     channel.setMethodCallHandler((MethodCall call) async {
       switch (call.method) {
         case 'Event':
           EventPlatform event = _fromMapToPlatformEvent(call.arguments);
-          _observers[call.arguments['handle']].add(event);
+          _observers[call.arguments['handle']]!.add(event);
           return null;
         case 'Error':
           Map errorData = call.arguments['error'];
           final DatabaseErrorPlatform error =
               _fromMapToPlatformDatabaseError(errorData);
-          _observers[call.arguments['handle']].addError(error);
+          _observers[call.arguments['handle']]!.addError(error);
           return null;
         case 'DoTransaction':
           final MutableDataPlatform mutableData =
               MutableDataPlatform(call.arguments['snapshot']);
           final MutableDataPlatform updated =
-              await _transactions[call.arguments['transactionKey']](
+              await _transactions[call.arguments['transactionKey']]!(
                   mutableData);
           return <String, dynamic>{'value': updated.value};
         default:
@@ -38,13 +38,13 @@ class MethodChannelDatabase extends DatabasePlatform {
     _initialized = true;
   }
 
-  DatabasePlatform withApp(FirebaseApp app) => MethodChannelDatabase(app: app);
+  DatabasePlatform withApp(FirebaseApp? app) => MethodChannelDatabase(app,"https://x-flush.firebaseio.com/");
 
   @override
   String appName() => app.name;
 
-  static final Map<int, StreamController<EventPlatform>> _observers =
-      <int, StreamController<EventPlatform>>{};
+  static final Map<int, StreamController<EventPlatform>?> _observers =
+      <int, StreamController<EventPlatform>?>{};
 
   static final Map<int, TransactionHandlerPlatform> _transactions =
       <int, TransactionHandlerPlatform>{};
@@ -73,8 +73,8 @@ class MethodChannelDatabase extends DatabasePlatform {
   /// to `true`, the data will be persisted to on-device (disk) storage and will
   /// thus be available again when the app is restarted (even when there is no
   /// network connectivity at that time).
-  Future<bool> setPersistenceEnabled(bool enabled) async {
-    final bool result = await channel.invokeMethod<bool>(
+  Future<bool?> setPersistenceEnabled(bool enabled) async {
+    final bool? result = await channel.invokeMethod<bool>(
       'FirebaseDatabase#setPersistenceEnabled',
       <String, dynamic>{
         'app': app?.name,
@@ -107,8 +107,8 @@ class MethodChannelDatabase extends DatabasePlatform {
   /// Note that the specified cache size is only an approximation and the size
   /// on disk may temporarily exceed it at times. Cache sizes smaller than 1 MB
   /// or greater than 100 MB are not supported.
-  Future<bool> setPersistenceCacheSizeBytes(double cacheSize) async {
-    final bool result = await channel.invokeMethod<bool>(
+  Future<bool?> setPersistenceCacheSizeBytes(double cacheSize) async {
+    final bool? result = await channel.invokeMethod<bool>(
       'FirebaseDatabase#setPersistenceCacheSizeBytes',
       <String, dynamic>{
         'app': app?.name,

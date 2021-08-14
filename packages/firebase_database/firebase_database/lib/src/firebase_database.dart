@@ -12,7 +12,7 @@ class FirebaseDatabase {
   ///
   /// If [app] is specified, its options should include a [databaseURL].
   ///
-  final String databaseURL;
+  final String? databaseURL;
   platform.DatabasePlatform _delegatePackingProperty;
 
   platform.DatabasePlatform get _delegate {
@@ -22,7 +22,7 @@ class FirebaseDatabase {
     return _delegatePackingProperty;
   }
 
-  FirebaseDatabase({FirebaseApp app, this.databaseURL})
+  FirebaseDatabase({FirebaseApp? app, this.databaseURL})
       : _delegatePackingProperty = app != null
             ? platform.DatabasePlatform.instanceFor(app: app)
             : platform.DatabasePlatform.instance;
@@ -60,7 +60,7 @@ class FirebaseDatabase {
   /// to `true`, the data will be persisted to on-device (disk) storage and will
   /// thus be available again when the app is restarted (even when there is no
   /// network connectivity at that time).
-  Future<bool> setPersistenceEnabled(bool enabled) =>
+  Future<bool?> setPersistenceEnabled(bool enabled) =>
       _delegate.setPersistenceEnabled(enabled);
 
   /// Attempts to set the size of the persistence cache.
@@ -80,7 +80,7 @@ class FirebaseDatabase {
   /// Note that the specified cache size is only an approximation and the size
   /// on disk may temporarily exceed it at times. Cache sizes smaller than 1 MB
   /// or greater than 100 MB are not supported.
-  Future<bool> setPersistenceCacheSizeBytes(double cacheSize) =>
+  Future<bool?> setPersistenceCacheSizeBytes(double cacheSize) =>
       _delegate.setPersistenceCacheSizeBytes(cacheSize);
 
   /// Resumes our connection to the Firebase Database backend after a previous

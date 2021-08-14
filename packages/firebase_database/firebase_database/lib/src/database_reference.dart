@@ -28,7 +28,7 @@ class DatabaseReference extends Query {
   /// Gets a DatabaseReference for the parent location. If this instance
   /// refers to the root of your Firebase Database, it has no parent, and
   /// therefore parent() will return null.
-  DatabaseReference parent() {
+  DatabaseReference? parent() {
     if (_pathComponents.isEmpty) {
       return null;
     }
@@ -145,11 +145,11 @@ class ServerValue {
   };
 }
 
-typedef Future<MutableData> TransactionHandler(MutableData mutableData);
+typedef Future<MutableData?> TransactionHandler(MutableData mutableData);
 
 class TransactionResult {
   const TransactionResult._(this.error, this.committed, this.dataSnapshot);
   final DatabaseError error;
-  final bool committed;
+  final bool? committed;
   final DataSnapshot dataSnapshot;
 }

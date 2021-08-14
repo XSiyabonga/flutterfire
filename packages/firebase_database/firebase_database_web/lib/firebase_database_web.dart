@@ -21,20 +21,22 @@ part './src/utils/snapshot_utils.dart';
 class DatabaseWeb extends DatabasePlatform {
   /// Instance of Database from web plugin
   web.Database webDatabase;
+  static final String url = "https://x-flush.firebaseio.com/";
 
   /// Called by PluginRegistry to register this plugin for Flutter Web
-  static void registerWith(Registrar registrar) {
-    DatabasePlatform.instance = DatabaseWeb();
+  static void registerWith(Registrar registrar) async {
+    FirebaseApp app = await Firebase.initializeApp();
+    DatabasePlatform.instance = DatabaseWeb(app,url);
   }
 
   /// Builds an instance of [DatabaseWeb] with an optional [FirebaseApp] instance
   /// If [app] is null then the created instance will use the default [FirebaseApp]
-  DatabaseWeb({FirebaseApp app, String databaseUrl})
-      : webDatabase = web.database(web.app((app ?? FirebaseApp.instance).name)),
-        super(app: app ?? FirebaseApp.instance, databaseURL: databaseUrl);
+  DatabaseWeb(FirebaseApp app, String databaseUrl)
+      : webDatabase = web.database(web.app((app).name)),
+        super(app: app, databaseURL: databaseUrl);
 
   @override
-  DatabasePlatform withApp(FirebaseApp app) => DatabaseWeb(app: app);
+  DatabasePlatform withApp(FirebaseApp? app) => DatabaseWeb(app!,url);
 
   @override
   String appName() => app.name;

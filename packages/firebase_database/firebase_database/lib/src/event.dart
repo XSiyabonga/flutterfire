@@ -12,20 +12,20 @@ class Event {
 
   DataSnapshot get snapshot => DataSnapshot._(_delegate.snapshot);
 
-  String get previousSiblingKey => _delegate.previousSiblingKey;
+  String? get previousSiblingKey => _delegate.previousSiblingKey;
 }
 
 /// A DataSnapshot contains data from a Firebase Database location.
 /// Any time you read Firebase data, you receive the data as a DataSnapshot.
 class DataSnapshot {
-  final platform.DataSnapshotPlatform _delegate;
+  final platform.DataSnapshotPlatform? _delegate;
   DataSnapshot._(this._delegate);
 
   /// The key of the location that generated this DataSnapshot.
-  String get key => _delegate.key;
+  String? get key => _delegate!.key;
 
   /// Returns the contents of this data snapshot as native types.
-  dynamic get value => _delegate.value;
+  dynamic get value => _delegate!.value;
 }
 
 class MutableData {
@@ -35,7 +35,7 @@ class MutableData {
   final Map<dynamic, dynamic> _data;
 
   /// The key of the location that generated this MutableData.
-  String get key => _data['key'];
+  String? get key => _data['key'];
 
   /// Returns the mutable contents of this MutableData as native types.
   dynamic get value => _data['value'];
@@ -46,17 +46,17 @@ class MutableData {
 /// Error that results from a transaction operation at a Firebase Database
 /// location.
 class DatabaseError {
-  platform.DatabaseErrorPlatform _delegate;
+  platform.DatabaseErrorPlatform? _delegate;
   DatabaseError._(this._delegate);
 
   /// One of the defined status codes, depending on the error.
-  int get code => _delegate.code;
+  int? get code => _delegate!.code;
 
   /// A human-readable description of the error.
-  String get message => _delegate.message;
+  String? get message => _delegate!.message;
 
   /// Human-readable details on the error and additional information.
-  String get details => _delegate.details;
+  String? get details => _delegate!.details;
 
   @override
   String toString() => "$runtimeType($code, $message, $details)";

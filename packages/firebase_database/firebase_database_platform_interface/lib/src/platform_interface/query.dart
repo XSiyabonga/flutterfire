@@ -10,21 +10,22 @@ abstract class QueryPlatform extends PlatformInterface {
   final DatabasePlatform database;
 
   /// The pathComponents associated with this query
-  final List<String> pathComponents;
+  final List<String>? pathComponents;
 
   /// The parameters associated with this query
   final Map<String, dynamic> parameters;
 
   /// Create a [QueryPlatform] instance
   QueryPlatform({
-    @required DatabasePlatform database,
-    @required List<String> pathComponents,
-    Map<String, dynamic> parameters,
+    required DatabasePlatform database,
+    required List<String>? pathComponents,
+    Map<String, dynamic>? parameters,
   })  : database = database,
         pathComponents = pathComponents,
         parameters = parameters ??
             Map<String, dynamic>.unmodifiable(<String, dynamic>{}),
-        assert(database != null);
+        assert(database != null),
+        super(token: "");
 
   /// Slash-delimited path representing the database location of this query.
   String get path => throw UnimplementedError("path not implemented");
@@ -56,7 +57,7 @@ abstract class QueryPlatform extends PlatformInterface {
   /// than or equal to the given value, using the given orderBy directive or
   /// priority as default, and optionally only child nodes with a key greater
   /// than or equal to the given key.
-  QueryPlatform startAt(dynamic value, {String key}) {
+  QueryPlatform startAt(dynamic value, {String? key}) {
     throw UnimplementedError("startAt() not implemented");
   }
 
@@ -64,7 +65,7 @@ abstract class QueryPlatform extends PlatformInterface {
   /// than or equal to the given value, using the given orderBy directive or
   /// priority as default, and optionally only child nodes with a key less
   /// than or equal to the given key.
-  QueryPlatform endAt(dynamic value, {String key}) {
+  QueryPlatform endAt(dynamic value, {String? key}) {
     throw UnimplementedError("endAt() not implemented");
   }
 
@@ -72,7 +73,7 @@ abstract class QueryPlatform extends PlatformInterface {
   /// `value` (and `key`, if provided).
   ///
   /// If a key is provided, there is at most one such child as names are unique.
-  QueryPlatform equalTo(dynamic value, {String key}) {
+  QueryPlatform equalTo(dynamic value, {String? key}) {
     throw UnimplementedError("equalTo() not implemented");
   }
 
