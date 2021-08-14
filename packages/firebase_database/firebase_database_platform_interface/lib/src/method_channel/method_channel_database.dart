@@ -38,7 +38,8 @@ class MethodChannelDatabase extends DatabasePlatform {
     _initialized = true;
   }
 
-  DatabasePlatform withApp(FirebaseApp? app) => MethodChannelDatabase(app,"https://x-flush.firebaseio.com/");
+  DatabasePlatform withApp(FirebaseApp? app) =>
+      MethodChannelDatabase(app, "https://x-flush.firebaseio.com/");
 
   @override
   String appName() => app.name;
@@ -77,7 +78,7 @@ class MethodChannelDatabase extends DatabasePlatform {
     final bool? result = await channel.invokeMethod<bool>(
       'FirebaseDatabase#setPersistenceEnabled',
       <String, dynamic>{
-        'app': app?.name,
+        'app': app.name,
         'databaseURL': databaseURL,
         'enabled': enabled,
       },
@@ -111,7 +112,7 @@ class MethodChannelDatabase extends DatabasePlatform {
     final bool? result = await channel.invokeMethod<bool>(
       'FirebaseDatabase#setPersistenceCacheSizeBytes',
       <String, dynamic>{
-        'app': app?.name,
+        'app': app.name,
         'databaseURL': databaseURL,
         'cacheSize': cacheSize,
       },
@@ -125,7 +126,7 @@ class MethodChannelDatabase extends DatabasePlatform {
     return channel.invokeMethod<void>(
       'FirebaseDatabase#goOnline',
       <String, dynamic>{
-        'app': app?.name,
+        'app': app.name,
         'databaseURL': databaseURL,
       },
     );
@@ -137,7 +138,7 @@ class MethodChannelDatabase extends DatabasePlatform {
     return channel.invokeMethod<void>(
       'FirebaseDatabase#goOffline',
       <String, dynamic>{
-        'app': app?.name,
+        'app': app.name,
         'databaseURL': databaseURL,
       },
     );
@@ -157,7 +158,7 @@ class MethodChannelDatabase extends DatabasePlatform {
     return channel.invokeMethod<void>(
       'FirebaseDatabase#purgeOutstandingWrites',
       <String, dynamic>{
-        'app': app?.name,
+        'app': app.name,
         'databaseURL': databaseURL,
       },
     );

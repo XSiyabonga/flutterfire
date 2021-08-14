@@ -36,7 +36,7 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
     return MethodChannelDatabase.channel.invokeMethod<void>(
       'DatabaseReference#set',
       <String, dynamic>{
-        'app': database.app?.name,
+        'app': database.app.name,
         'databaseURL': database.databaseURL,
         'path': path,
         'value': value,
@@ -50,7 +50,7 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
     return MethodChannelDatabase.channel.invokeMethod<void>(
       'DatabaseReference#update',
       <String, dynamic>{
-        'app': database.app?.name,
+        'app': database.app.name,
         'databaseURL': database.databaseURL,
         'path': path,
         'value': value,
@@ -86,7 +86,7 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
     return MethodChannelDatabase.channel.invokeMethod<void>(
       'DatabaseReference#setPriority',
       <String, dynamic>{
-        'app': database.app?.name,
+        'app': database.app.name,
         'databaseURL': database.databaseURL,
         'path': path,
         'priority': priority,
@@ -137,7 +137,7 @@ class MethodChannelDatabaseReference extends MethodChannelQuery
 
     await MethodChannelDatabase.channel.invokeMethod<void>(
         'DatabaseReference#runTransaction', <String, dynamic>{
-      'app': database.app?.name,
+      'app': database.app.name,
       'databaseURL': database.databaseURL,
       'path': path,
       'transactionKey': transactionKey,
