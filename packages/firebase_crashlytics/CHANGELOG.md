@@ -1,3 +1,28 @@
+## 0.1.4
+
+* Update lower bound of dart dependency to 2.0.0.
+
+## 0.1.3+3
+
+* Fix for missing UserAgent.h compilation failures.
+
+## 0.1.3+2
+
+* Fix Cirrus build by removing WorkspaceSettings.xcsettings file in the iOS example app.
+
+## 0.1.3+1
+
+* Make the pedantic dev_dependency explicit.
+
+## 0.1.3
+
+* Add macOS support
+
+## 0.1.2+5
+
+* Fix overrides a deprecated API.
+* Raise minimum required Flutter SDK version to 1.12.13+hotfix.4
+
 ## 0.1.2+4
 
 * Updated the example with the missing `recordError()` method.
