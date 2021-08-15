@@ -20,9 +20,15 @@ dependencies:
     sdk: flutter
   firebase_core: ^1.1.0
   firebase_database_platform_interface:
-    path: ../firebase_database_platform_interface
+    git:
+      url: https://github.com/XSiyabonga/flutterfire.git
+      path: packages/firebase_database/firebase_database_platform_interface
+      ref: lastest_web_support
   firebase_database_web:
-     path: ../firebase_database_web
+    git:
+      url: https://github.com/XSiyabonga/flutterfire.git
+      path: packages/firebase_database/firebase_database_web
+      ref: lastest_web_support
 dev_dependencies:
   pedantic: ^1.8.0
   test: ^1.3.0
