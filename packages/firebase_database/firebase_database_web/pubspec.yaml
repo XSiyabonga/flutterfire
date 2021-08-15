@@ -20,7 +20,7 @@ dependencies:
   firebase_database_platform_interface:
     git:
       url: https://github.com/XSiyabonga/flutterfire.git
-      path: packages/firebase_database/firebase_database
+      path: packages/firebase_database/firebase_database_platform_interface
       ref: lastest_web_support
   js: ^0.6.1
 dev_dependencies:
